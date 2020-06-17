@@ -2,11 +2,6 @@
   <div id="app">
     <router-view />
     <hr />
-    <div id="nav">
-      <router-link to="/money">money</router-link>
-      <router-link to="/label">label</router-link>
-      <router-link to="/statistics">statistics</router-link>
-    </div>
   </div>
 </template>
 
@@ -17,19 +12,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    margin: 0 10px;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
