@@ -1,9 +1,18 @@
 <template>
-  <div class="nav">
-    <router-link to="/money">money</router-link>
-    <router-link to="/label">label</router-link>
-    <router-link to="/statistics">statistics</router-link>
-  </div>
+  <nav>
+    <router-link to="/label" class="item">
+      <Icon id="label" />
+      标签
+    </router-link>
+    <router-link to="/money" class="item">
+      <Icon id="money" />
+      记账
+    </router-link>
+    <router-link to="/statistics" class="item">
+      <Icon id="statistics" />
+      统计
+    </router-link>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -16,13 +25,19 @@ export default class Nav extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  padding: 30px;
+nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  font-size: 14px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.25);
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    margin: 0 10px;
+  >.item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33.3333%;
   }
+
 }
 </style>

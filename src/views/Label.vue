@@ -1,7 +1,5 @@
 <template>
-  <Layout>
-    <p>Label</p>
-  </Layout>
+  <Layout>Label</Layout>
 </template>
 
 <script lang="ts">
@@ -11,5 +9,4 @@ export default Vue.extend({});
 </script>
 
 <style lang="scss" scoped>
-
 </style>

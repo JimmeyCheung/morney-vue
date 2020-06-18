@@ -1,31 +1,29 @@
 <template>
-    <div class="wrapper">
+  <div class="wrapper">
     <div class="content">
-      <slot />
+      <slot></slot>
     </div>
-    <Nav class="nav"/>
+    <Nav class="nav" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
 
-@Component
-export default class Layout extends Vue {
-}
+export default Vue.extend({
+  name: "Layout"
+});
 </script>
 
 <style lang="scss" scoped>
-  .wrapper{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
-    .content{
-      flex: 1;
-      height: 100%;
-      background: yellow;
-      overflow: auto;
-    }
+  .content {
+    flex: 1;
+    height: 100%;
   }
+}
 </style>
