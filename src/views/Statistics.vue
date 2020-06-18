@@ -1,8 +1,5 @@
 <template>
-  <div>
-    Statistics
-    <Nav />
-  </div>
+  <Layout>Statistics</Layout>
 </template>
 
 <script lang="ts">
@@ -11,6 +8,5 @@ import Vue from "vue";
 export default Vue.extend({});
 </script>
 
-<style lang="sass" scoped>
-
+<style lang="scss" scoped>
 </style>

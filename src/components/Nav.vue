@@ -1,9 +1,18 @@
 <template>
-  <div class="nav">
-    <router-link to="/money">money</router-link>
-    <router-link to="/label">label</router-link>
-    <router-link to="/statistics">statistics</router-link>
-  </div>
+  <nav>
+    <router-link to="/money" class="item">
+      money
+      <Icon id="money" />
+    </router-link>
+    <router-link to="/label" class="item">
+      label
+      <Icon id="label" />
+    </router-link>
+    <router-link to="/statistics" class="item">
+      statistics
+      <Icon id="statistics" />
+    </router-link>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -16,7 +25,7 @@ export default class Nav extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.nav {
+nav {
   padding: 30px;
 
   a {
