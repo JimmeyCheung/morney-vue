@@ -7,13 +7,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-
-export default Vue.extend({
-  name: "Layout"
-});
-</script>
 
 <style lang="scss" scoped>
 .wrapper {
@@ -22,8 +15,11 @@ export default Vue.extend({
   flex-direction: column;
 
   .content {
+    display: flex;
+    flex-direction: column;
     flex: 1;
     height: 100%;
+    overflow: auto;
   }
 }
 </style>

@@ -1,15 +1,14 @@
 <template>
   <svg>
-    <use :xlink:href="'#'+id" />
+    <use :xlink:href="'#'+name" />
   </svg>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-
-export default Vue.extend({
-  props: ["id"]
-});
+export default {
+  props: ["name"]
+};
 </script>
 
 <style lang="scss" scoped>
