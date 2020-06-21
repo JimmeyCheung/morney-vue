@@ -1,35 +1,37 @@
 <template>
   <div class="tags-wrapper">
     <div class="btn-add">
-      <button>新增标签</button>
+      <button @click="addTag()">新增标签</button>
     </div>
     <ul class="tags">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li
+        v-for="tag in tagList"
+        :key="tag"
+        :class="selectedTags.indexOf(tag)>-1&&'selected'"
+        @click="toggle(tag)"
+      >{{tag}}</li>
     </ul>
   </div>
 </template>
 
 
-<script lang="ts">
+<script lang='ts'>
 import Vue from "vue";
-export default {
-  name: "Tags"
-};
+import { Component, Prop } from "vue-property-decorator";
+@Component
+export default class Tags extends Vue {
+  @Prop() tagList: string[] | undefined;
+  selectedTags: string[] = [];
+  toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+  }
+  addTag() {}
+}
 </script>
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
@@ -46,7 +48,8 @@ export default {
     flex-wrap: wrap;
     overflow: auto;
     > li {
-      background: #d9d9d9;
+      $bg: #d9d9d9;
+      background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -54,6 +57,10 @@ export default {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      &.selected {
+        background: darken($bg, 50%);
+        color: white;
+      }
     }
   }
   > .btn-add {

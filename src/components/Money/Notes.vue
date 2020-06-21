@@ -2,17 +2,22 @@
   <div class="notes">
     <label>
       <span>备注</span>
-      <input type="text" placeholder="在这里添加备注" />
+      <input type="text" placeholder="在这里添加备注" v-model="value" />
     </label>
   </div>
 </template>
 
-
-<script lang="ts">
+<script lang='ts'>
 import Vue from "vue";
-export default {
-  name: "Notes"
-};
+import { Component } from "vue-property-decorator";
+@Component
+export default class Notes extends Vue {
+  value: string = "";
+  oninput(event: KeyboardEvent) {
+    const input = event.target as HTMLInputElement;
+    this.value = input.value;
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -23,7 +28,7 @@ export default {
   padding-left: 16px;
   display: flex;
   align-items: center;
-  .span {
+  span {
     padding-right: 16px;
   }
   input {
