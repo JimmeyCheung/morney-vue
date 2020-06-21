@@ -20,7 +20,7 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
-  @Prop() tagList: string[] | undefined;
+  @Prop(Array) readonly tagList: string[] | undefined;
   selectedTags: string[] = [];
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
@@ -30,7 +30,14 @@ export default class Tags extends Vue {
       this.selectedTags.push(tag);
     }
   }
-  addTag() {}
+  addTag() {
+    const name = window.prompt("请输入标签名");
+    if (!name) {
+      name !== null && window.alert("标签名不能为空");
+    } else if (this.tagList) {
+      this.$emit("update:tagList", [...this.tagList, name]);
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>

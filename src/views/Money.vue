@@ -1,6 +1,6 @@
 <template>
   <Layout class="layout">
-    <Tags :tagList="tagList" />
+    <Tags :tagList.sync="tagList" />
     <Notes />
     <Types />
     <NumberPad />
