@@ -13,7 +13,7 @@ import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
-import { model } from "@/store/model.ts";
+import { recordListModel } from "@/models/recordListModel.ts";
 
 window.localStorage.setItem("version", "0.0.1");
 
@@ -27,16 +27,16 @@ export default class extends Vue {
     type: "-",
     amount: 0
   };
-  recordList: RecordItem[] = model.fetch();
+  recordList: RecordItem[] = recordListModel.fetch();
   submit() {
     this.record.createdDate = new Date();
-    const copyData = model.clone(this.record);
+    const copyData = recordListModel.clone(this.record);
     this.recordList.push(copyData);
     console.log(this.recordList);
   }
   @Watch("recordList")
   onRecordItemListChanged() {
-    model.save(this.recordList);
+    recordListModel.save(this.recordList);
   }
 }
 </script>
