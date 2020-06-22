@@ -13,36 +13,30 @@ import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
+import { model } from "@/store/model.ts";
 
 window.localStorage.setItem("version", "0.0.1");
 
-type Record = {
-  tags: string[];
-  notes: string;
-  type: string;
-  amount: number;
-  createdDate?: Date;
-};
 @Component({
   components: { Tags, Notes, Types, NumberPad }
 })
 export default class extends Vue {
-  record: Record = {
+  record: RecordItem = {
     tags: ["衣", "食", "住", "行"],
     notes: "",
     type: "-",
     amount: 0
   };
-  recordList: Record[] = JSON.parse(localStorage.getItem("recordList") || "[]");
+  recordList: RecordItem[] = model.fetch();
   submit() {
     this.record.createdDate = new Date();
-    const copyData = JSON.parse(JSON.stringify(this.record));
+    const copyData = model.clone(this.record);
     this.recordList.push(copyData);
     console.log(this.recordList);
   }
   @Watch("recordList")
-  onRecordListChanged() {
-    localStorage.setItem("recordList", JSON.stringify(this.recordList));
+  onRecordItemListChanged() {
+    model.save(this.recordList);
   }
 }
 </script>
