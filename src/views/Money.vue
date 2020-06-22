@@ -3,22 +3,25 @@
     <Tags :tagList.sync="record.tags" />
     <Notes :value.sync="record.notes" />
     <Types :value.sync="record.type" />
-    <NumberPad :value.sync="record.amount" />
+    <NumberPad :value.sync="record.amount" @update:value="submit()" />
   </Layout>
 </template>
 <script lang='ts'>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
+
+window.localStorage.setItem("version", "0.0.1");
 
 type Record = {
   tags: string[];
   notes: string;
   type: string;
   amount: number;
+  createdDate?: Date;
 };
 @Component({
   components: { Tags, Notes, Types, NumberPad }
@@ -30,6 +33,17 @@ export default class extends Vue {
     type: "-",
     amount: 0
   };
+  recordList: Record[] = JSON.parse(localStorage.getItem("recordList") || "[]");
+  submit() {
+    this.record.createdDate = new Date();
+    const copyData = JSON.parse(JSON.stringify(this.record));
+    this.recordList.push(copyData);
+    console.log(this.recordList);
+  }
+  @Watch("recordList")
+  onRecordListChanged() {
+    localStorage.setItem("recordList", JSON.stringify(this.recordList));
+  }
 }
 </script>
 
