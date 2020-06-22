@@ -26,7 +26,7 @@ type Record = {
 export default class extends Vue {
   record: Record = {
     tags: ["衣", "食", "住", "行"],
-    notes: "1",
+    notes: "",
     type: "-",
     amount: 0
   };
