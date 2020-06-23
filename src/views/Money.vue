@@ -1,7 +1,7 @@
 <template>
   <Layout class="layout">
     <Tags :tagList.sync="tagList" @select:tags="onSelectedTags" />
-    <FormItem field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
+    <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
     <Types :value.sync="record.type" />
     <NumberPad :value.sync="record.amount" @submit:value="submit" />
   </Layout>
@@ -56,5 +56,9 @@ export default class extends Vue {
 .layout {
   display: flex;
   flex-direction: column-reverse;
+
+  .form-item {
+    background: #f5f5f5;
+  }
 }
 </style>

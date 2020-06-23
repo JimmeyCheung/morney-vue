@@ -1,5 +1,5 @@
 <template>
-  <div class="notes">
+  <div class="form-item">
     <label>
       <span>{{fieldName}}</span>
       <input
@@ -28,9 +28,8 @@ export default class FormItem extends Vue {
 
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
-.notes {
+.form-item {
   font-size: 14px;
-  background: #f5f5f5;
   padding-left: 16px;
   display: flex;
   align-items: center;
