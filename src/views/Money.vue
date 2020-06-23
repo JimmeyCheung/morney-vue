@@ -3,7 +3,7 @@
     <Tags :tagList.sync="tagList" @select:tags="onSelectedTags" />
     <Notes :value.sync="record.notes" />
     <Types :value.sync="record.type" />
-    <NumberPad :value.sync="record.amount" />
+    <NumberPad :value.sync="record.amount" @submit:value="submit" />
   </Layout>
 </template>
 <script lang='ts'>
@@ -33,14 +33,14 @@ export default class extends Vue {
   };
   recordList: RecordItem[] = recordListModel.fetch();
   submit() {
+    console.log(this.recordList);
     this.record.createdDate = new Date();
     const copyData = recordListModel.clone(this.record);
     this.recordList.push(copyData);
-    console.log(this.recordList);
   }
   onSelectedTags(selectedTags: string[]) {
-    console.log(1, selectedTags);
     this.record.tags = selectedTags;
+    console.log(this.record);
   }
   @Watch("recordList")
   onRecordItemListChanged() {

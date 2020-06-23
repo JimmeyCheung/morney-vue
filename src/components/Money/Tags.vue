@@ -6,7 +6,7 @@
     <ul class="tags">
       <li
         v-for="tag in tagList"
-        :key="tag"
+        :key="tag.id"
         :class="selectedTags.indexOf(tag)>-1&&'selected'"
         @click="toggle(tag)"
       >{{tag.name}}</li>

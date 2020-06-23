@@ -1,11 +1,11 @@
 <template>
   <Layout>
-    <ol class="tags">
-      <li v-for="tag in tagList" :key="tag">
+    <div class="tags">
+      <router-link class="tag" v-for="tag in tagList" :key="tag.id" :to="`/label/edit:${tag.id}`">
         <span>{{tag.name}}</span>
         <Icon name="right" />
-      </li>
-    </ol>
+      </router-link>
+    </div>
     <div class="btn-wrapper">
       <button class="btn" @click="create()">新建标签</button>
     </div>
@@ -40,7 +40,7 @@ export default class extends Vue {
   color: #000;
   font-size: 16px;
 
-  & > li {
+  & > .tag {
     display: flex;
     min-height: 44px;
     align-items: center;
