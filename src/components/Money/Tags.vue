@@ -9,7 +9,7 @@
         :key="tag"
         :class="selectedTags.indexOf(tag)>-1&&'selected'"
         @click="toggle(tag)"
-      >{{tag}}</li>
+      >{{tag.name}}</li>
     </ul>
   </div>
 </template>
@@ -18,6 +18,8 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
+import tagListModel from "@/models/tagListModel";
+
 @Component
 export default class Tags extends Vue {
   @Prop(Array) readonly tagList!: string[];
@@ -29,13 +31,17 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    this.$emit("select:tags", this.selectedTags);
   }
   addTag() {
-    const name = window.prompt("请输入标签名");
-    if (!name) {
-      name !== null && window.alert("标签名不能为空");
-    } else if (this.tagList) {
-      this.$emit("update:tagList", [...this.tagList, name]);
+    const name = window.prompt("请输出标签名");
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === "duplicated") {
+        window.alert("标签名重复了");
+      } else if (message === "success") {
+        window.alert("添加成功");
+      }
     }
   }
 }

@@ -2,7 +2,7 @@
   <Layout>
     <ol class="tags">
       <li v-for="tag in tagList" :key="tag">
-        <span>{{tag}}</span>
+        <span>{{tag.name}}</span>
         <Icon name="right" />
       </li>
     </ol>
@@ -15,15 +15,20 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import { tagListModel } from "@/models/tagListModel";
+import tagListModel from "@/models/tagListModel";
 tagListModel.fetch();
 @Component
 export default class extends Vue {
   tagList = tagListModel.data;
   create() {
-    const tagName = window.prompt();
-    if (tagName) {
-      tagListModel.create(tagName);
+    const name = window.prompt("请输出标签名");
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === "duplicated") {
+        window.alert("标签名重复了");
+      } else if (message === "success") {
+        window.alert("添加成功");
+      }
     }
   }
 }
