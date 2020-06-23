@@ -1,7 +1,7 @@
 <template>
   <Layout class="layout">
     <Tags :tagList.sync="tagList" @select:tags="onSelectedTags" />
-    <Notes :value.sync="record.notes" />
+    <FormItem field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
     <Types :value.sync="record.type" />
     <NumberPad :value.sync="record.amount" @submit:value="submit" />
   </Layout>
@@ -10,7 +10,6 @@
 import Vue from "vue";
 import { Component, Watch } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
-import Notes from "@/components/Money/Notes.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
 import { recordListModel } from "@/models/recordListModel.ts";
@@ -21,7 +20,7 @@ window.localStorage.setItem("version", "0.0.1");
 tagListModel.fetch();
 
 @Component({
-  components: { Tags, Notes, Types, NumberPad }
+  components: { Tags, Types, NumberPad }
 })
 export default class extends Vue {
   tagList = tagListModel.data;

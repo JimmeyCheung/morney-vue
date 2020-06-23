@@ -7,7 +7,7 @@
       </router-link>
     </div>
     <div class="btn-wrapper">
-      <button class="btn" @click="create()">新建标签</button>
+      <Button class="btn" @click="create()">新建标签</Button>
     </div>
   </Layout>
 </template>
@@ -58,16 +58,5 @@ export default class extends Vue {
   display: flex;
   justify-content: center;
   margin-top: 44px;
-
-  & > .btn {
-    height: 40px;
-    border: 0;
-    padding: 0 16px;
-    background: #767676;
-    font-size: 17px;
-    color: #fff;
-    line-height: 40px;
-    border-radius: 4px;
-  }
 }
 </style>

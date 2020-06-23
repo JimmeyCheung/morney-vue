@@ -6,6 +6,8 @@ import store from './store'
 import Nav from '@/components/Nav.vue';
 import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
+import FormItem from '@/components/FormItem.vue';
+import Button from '@/components/Button.vue';
 
 Vue.config.productionTip = false
 
@@ -21,6 +23,9 @@ try {
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
 Vue.component('Layout', Layout);
+Vue.component('FormItem', FormItem);
+Vue.component('Button', Button);
+
 
 
 new Vue({
