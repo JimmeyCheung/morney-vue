@@ -16,17 +16,13 @@
 
 <script lang="ts">
 import Vue from "vue";
-import tagListModel from "@/models/tagListModel";
 import { Component } from "vue-property-decorator";
 
 @Component
 export default class EditLabel extends Vue {
   tag?: { id: string; name: string } = { id: "", name: "" };
   created() {
-    const id = this.$route.params.id;
-    tagListModel.fetch();
-    const tags = tagListModel.data;
-    const tag = tags.filter(t => t.id === id)[0];
+    const tag = window.findTag(this.$route.params.id);
     if (tag) {
       this.tag = tag;
     } else {
@@ -36,16 +32,14 @@ export default class EditLabel extends Vue {
 
   update(name: string) {
     if (this.tag) {
-      tagListModel.update(this.tag.id, name);
+      window.UpdateTag(this.tag.id, name);
     }
   }
   remove() {
-    if (this.tag) {
-      if (tagListModel.remove(this.tag.id)) {
-        this.$router.back();
-      } else {
-        window.alert("删除失败");
-      }
+    if (this.tag && window.removeTag(this.tag.id)) {
+      this.$router.back();
+    } else {
+      window.alert("删除失败");
     }
   }
 

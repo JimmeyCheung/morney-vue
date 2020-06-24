@@ -32,13 +32,7 @@ const tagListModel: TagListModel = {
         }
     },
     remove(id: string) {
-        let index = -1;
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i].id === id) {
-                index = i;
-                break;
-            }
-        }
+        const index = this.data.findIndex(v => v.id === id);
         this.data.splice(index, 1);
         this.save();
         return true;
