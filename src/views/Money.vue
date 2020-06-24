@@ -12,7 +12,6 @@ import { Component } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
-import store from "@/store/index2";
 
 window.localStorage.setItem("version", "0.0.1");
 
@@ -20,16 +19,18 @@ window.localStorage.setItem("version", "0.0.1");
   components: { Tags, Types, NumberPad }
 })
 export default class extends Vue {
-  tagList = store.tagList;
   record: RecordItem = {
     tags: [],
     notes: "",
     type: "-",
     amount: 0
   };
-  recordList = store.recordList;
+  recordList = this.$store.state.recordList;
+  created() {
+    this.$store.commit("fetchRecord");
+  }
   submit() {
-    store.createRecord(this.record);
+    this.$store.commit("createRecord", this.record);
   }
   onSelectedTags(selectedTags: string[]) {
     this.record.tags = selectedTags;

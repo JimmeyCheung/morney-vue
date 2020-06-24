@@ -15,15 +15,22 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
-import store from "@/store/index2";
 
-@Component
+@Component({
+  computed: {
+    tagList() {
+      return this.$store.state.tagList;
+    }
+  }
+})
 export default class extends Vue {
-  tagList = store.tagList;
+  created() {
+    this.$store.commit("fetchTag");
+  }
   create() {
     const name = window.prompt("请输出标签名");
     if (name) {
-      store.createTag(name);
+      this.$store.commit("createTag", name);
     }
   }
 }
