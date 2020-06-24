@@ -1,6 +1,6 @@
 <template>
   <Layout class="layout">
-    <Tags :tagList.sync="tagList" @select:tags="onSelectedTags" />
+    <Tags @select:tags="onSelectedTags" />
     <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
     <Types :value.sync="record.type" />
     <NumberPad :value.sync="record.amount" @submit:value="submit" />
