@@ -18,6 +18,7 @@ import tagListModel from "@/models/tagListModel";
 window.localStorage.setItem("version", "0.0.1");
 
 tagListModel.fetch();
+recordListModel.fetch();
 
 @Component({
   components: { Tags, Types, NumberPad }
@@ -30,20 +31,16 @@ export default class extends Vue {
     type: "-",
     amount: 0
   };
-  recordList: RecordItem[] = recordListModel.fetch();
+  recordList = recordListModel.data;
   submit() {
-    console.log(this.recordList);
-    this.record.createdDate = new Date();
-    const copyData = recordListModel.clone(this.record);
-    this.recordList.push(copyData);
+    recordListModel.create(this.record);
   }
   onSelectedTags(selectedTags: string[]) {
     this.record.tags = selectedTags;
-    console.log(this.record);
   }
   @Watch("recordList")
   onRecordItemListChanged() {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
   @Watch("tagList")
   onTagListChanged() {
