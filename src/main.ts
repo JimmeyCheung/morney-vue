@@ -9,6 +9,7 @@ import Layout from '@/components/Layout.vue';
 import FormItem from '@/components/FormItem.vue';
 import Button from '@/components/Button.vue';
 import tagListModel from '@/models/tagListModel';
+import { recordListModel } from '@/models/recordListModel.ts';
 
 Vue.config.productionTip = false
 Object.assign(window, {
@@ -29,7 +30,12 @@ Object.assign(window, {
     },
     findTag: (id: string) => {
         return window.tagList.find(t => t.id === id);
+    },
+    recordList: recordListModel.fetch(),
+    createRecord: (record: RecordItem) => {
+        recordListModel.create(record);
     }
+
 });
 
 // 引入assets全部的 svg icon

@@ -8,15 +8,12 @@
 </template>
 <script lang='ts'>
 import Vue from "vue";
-import { Component, Watch } from "vue-property-decorator";
+import { Component } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
 import Types from "@/components/Money/Types.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
-import { recordListModel } from "@/models/recordListModel.ts";
-import tagListModel from "@/models/tagListModel";
 
 window.localStorage.setItem("version", "0.0.1");
-recordListModel.fetch();
 
 @Component({
   components: { Tags, Types, NumberPad }
@@ -26,23 +23,15 @@ export default class extends Vue {
   record: RecordItem = {
     tags: [],
     notes: "",
-    type: "-",
+    type: "",
     amount: 0
   };
-  recordList = recordListModel.data;
+  recordList = window.recordList;
   submit() {
-    recordListModel.create(this.record);
+    window.createRecord(this.record);
   }
   onSelectedTags(selectedTags: string[]) {
     this.record.tags = selectedTags;
-  }
-  @Watch("recordList")
-  onRecordItemListChanged() {
-    recordListModel.save();
-  }
-  @Watch("tagList")
-  onTagListChanged() {
-    tagListModel.save();
   }
 }
 </script>

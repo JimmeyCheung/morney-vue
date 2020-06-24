@@ -11,9 +11,7 @@ const recordListModel = {
         const copyRecord = clone(record);
         copyRecord.createdDate = new Date();
         this.data.push(copyRecord);
-    },
-    save() {
         window.localStorage.setItem("recordList", JSON.stringify(this.data));
-    }
+    },
 };
 export { recordListModel }
