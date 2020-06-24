@@ -16,10 +16,10 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import tagListModel from "@/models/tagListModel";
-tagListModel.fetch();
+
 @Component
 export default class extends Vue {
-  tagList = tagListModel.data;
+  tagList = window.tagList;
   create() {
     const name = window.prompt("请输出标签名");
     if (name) {

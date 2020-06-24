@@ -16,15 +16,13 @@ import { recordListModel } from "@/models/recordListModel.ts";
 import tagListModel from "@/models/tagListModel";
 
 window.localStorage.setItem("version", "0.0.1");
-
-tagListModel.fetch();
 recordListModel.fetch();
 
 @Component({
   components: { Tags, Types, NumberPad }
 })
 export default class extends Vue {
-  tagList = tagListModel.data;
+  tagList = window.tagList;
   record: RecordItem = {
     tags: [],
     notes: "",

@@ -8,8 +8,10 @@ import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
 import FormItem from '@/components/FormItem.vue';
 import Button from '@/components/Button.vue';
+import tagListModel from '@/models/tagListModel';
 
 Vue.config.productionTip = false
+window.tagList = tagListModel.fetch();
 
 // 引入assets全部的 svg icon
 const importAll = (requireContext: __WebpackModuleApi.RequireContext) =>
