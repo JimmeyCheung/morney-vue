@@ -15,14 +15,15 @@
 <script lang='ts'>
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import store from "@/store/index2";
 
 @Component
 export default class extends Vue {
-  tagList = window.tagList;
+  tagList = store.tagList;
   create() {
     const name = window.prompt("请输出标签名");
     if (name) {
-      window.createTag(name);
+      store.createTag(name);
     }
   }
 }

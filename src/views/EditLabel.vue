@@ -17,12 +17,13 @@
 <script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
+import store from "@/store/index2";
 
 @Component
 export default class EditLabel extends Vue {
   tag?: { id: string; name: string } = { id: "", name: "" };
   created() {
-    const tag = window.findTag(this.$route.params.id);
+    const tag = store.findTag(this.$route.params.id);
     if (tag) {
       this.tag = tag;
     } else {
@@ -32,11 +33,11 @@ export default class EditLabel extends Vue {
 
   update(name: string) {
     if (this.tag) {
-      window.updateTag(this.tag.id, name);
+      store.updateTag(this.tag.id, name);
     }
   }
   remove() {
-    if (this.tag && window.removeTag(this.tag.id)) {
+    if (this.tag && store.removeTag(this.tag.id)) {
       this.$router.back();
     } else {
       window.alert("删除失败");
