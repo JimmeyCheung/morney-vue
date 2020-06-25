@@ -46,20 +46,21 @@ const store = new Vuex.Store({
       window.alert("添加成功");
       return 'success';
     },
-    updateTag(state, { id, name }) {
+    updateTag(state, payload: { id: string, name: string }) {
+      const { id, name } = payload;
       const idList = state.tagList.map(item => item.id);
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map(item => item.name);
         if (names.indexOf(name) >= 0) {
-          return 'duplicated';
+          console.log('duplicated');
         } else {
-          const tag = state.tagList.filter(item => item.id === id)[0];
+          const tag = state.tagList.find(item => item.id === id) as Tag;
           tag.name = name;
           store.commit("saveTag");
-          return 'success';
+          console.log("success");
         }
       } else {
-        return 'not found';
+        console.log('not found');
       }
     },
     saveTag(state) {
@@ -74,7 +75,7 @@ const store = new Vuex.Store({
     },
     findTag(state, id) {
       state.currentTag = state.tagList.find(t => t.id === id);
-      console.log(state.currentTag);
+      console.log('currentTag', state.currentTag);
     }
 
   }

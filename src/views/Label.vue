@@ -7,28 +7,23 @@
       </router-link>
     </div>
     <div class="btn-wrapper">
-      <Button class="btn" @click="create()">新建标签</Button>
+      <Button class="btn" @click="createTag()">新建标签</Button>
     </div>
   </Layout>
 </template>
 
 <script lang='ts'>
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
+import tagHelper from "@/mixins/tagHelper";
 
 @Component
-export default class extends Vue {
+export default class extends Mixins(tagHelper) {
   get tagList() {
     return this.$store.state.tagList;
   }
   created() {
     this.$store.commit("fetchTag");
-  }
-  create() {
-    const name = window.prompt("请输出标签名");
-    if (name) {
-      this.$store.commit("createTag", name);
-    }
   }
 }
 </script>

@@ -7,7 +7,7 @@
     </div>
     <div class="form-wrapper">
       <FormItem
-        :value="tag&&tag.name"
+        :value="currentTag&&currentTag.name"
         @update:value="update"
         field-name="标签名"
         placeholder="请输入标签名"
@@ -25,25 +25,24 @@ import { Component } from "vue-property-decorator";
 
 @Component
 export default class EditLabel extends Vue {
-  get tag() {
+  get currentTag() {
     return this.$store.state.currentTag;
   }
   created() {
     this.$store.commit("findTag", this.$route.params.id);
-    if (!this.tag) {
+    if (!this.currentTag) {
       this.$router.replace("/404");
     }
   }
 
   update(name: string) {
-    console.log(name);
-    if (this.tag) {
-      this.$store.commit("updateTag", { id: this.tag.id, name });
+    if (this.currentTag) {
+      this.$store.commit("updateTag", { id: this.currentTag.id, name });
     }
   }
   remove() {
-    this.$store.commit("removeTag", this.tag.id);
-    if (this.tag) {
+    this.$store.commit("removeTag", this.currentTag.id);
+    if (this.currentTag) {
       window.alert("删除失败");
     } else {
       this.$router.back();
