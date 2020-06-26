@@ -2,7 +2,7 @@
   <Layout class="layout">
     <Tags @select:tags="onSelectedTags" />
     <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
-    <Types :value.sync="record.type" />
+    <Tabs :value.sync="record.type" :data-source="tabDataSource" />
     <NumberPad :value.sync="record.amount" @submit:value="submit" />
   </Layout>
 </template>
@@ -10,15 +10,17 @@
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
-import Types from "@/components/Money/Types.vue";
+import Tabs from "@/components/Tabs.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
+import recordTypeList from "@/constants/recordTypeList";
 
 window.localStorage.setItem("version", "0.0.1");
 
 @Component({
-  components: { Tags, Types, NumberPad }
+  components: { Tags, Tabs, NumberPad }
 })
 export default class extends Vue {
+  tabDataSource = recordTypeList;
   record: RecordItem = {
     tags: [],
     notes: "",
