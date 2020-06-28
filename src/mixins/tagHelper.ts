@@ -6,6 +6,7 @@ export default class extends Vue {
         const name = window.prompt("请输出标签名");
         if (name) {
             this.$store.commit("createTag", name);
+            window.alert(this.$store.state.createTagError || '添加成功')
         }
     }
 }
