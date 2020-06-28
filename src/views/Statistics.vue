@@ -1,18 +1,22 @@
 <template>
   <Layout class="layout">
-    <Tabs :data-source="recordDataSource" class-prefix="type" :value.sync="type" />
+    <Tabs
+      :data-source="recordDataSource"
+      class-prefix="type"
+      :value.sync="type"
+    />
     <!-- <Tabs :data-source="intervalDataSource" class-prefix="interval" /> -->
     <ol>
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
-          {{beautify(group.title)}}
-          <span>￥{{group.total}}</span>
+          {{ beautify(group.title) }}
+          <span>￥{{ group.total }}</span>
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
-            <span>{{tagString(item.tags)}}</span>
-            <span class="notes">{{item.notes}}</span>
-            <span>￥{{item.amount}}</span>
+            <span>{{ tagString(item.tags) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amount }}</span>
           </li>
         </ol>
       </li>
@@ -20,7 +24,7 @@
   </Layout>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
@@ -30,13 +34,13 @@ import dayjs from "dayjs";
 import clone from "@/lib/clone";
 
 @Component({
-  components: { Tabs }
+  components: { Tabs },
 })
 export default class extends Vue {
   recordDataSource = recordTypeList;
   intervalDataSource = intervalList;
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.map(v => v.name).join(",");
+    return tags.length === 0 ? "无" : tags.map((v) => v.name).join(",");
   }
 
   beautify(string: string) {
@@ -66,19 +70,22 @@ export default class extends Vue {
     }
 
     const newList = clone(recordList)
-      .filter(r => {
+      .filter((r) => {
         return r.type === this.type;
       })
       .sort(
         (a, b) =>
           dayjs(b.createdDate).valueOf() - dayjs(a.createdDate).valueOf()
       );
+    if (newList.length === 0) {
+      return [];
+    }
     type Result = { title: string; total?: number; items: RecordItem[] }[];
     const result: Result = [
       {
         title: dayjs(newList[0].createdDate).format("YYYY-MM-DD"),
-        items: [newList[0]]
-      }
+        items: [newList[0]],
+      },
     ];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
@@ -88,11 +95,11 @@ export default class extends Vue {
       } else {
         result.push({
           title: dayjs(current.createdDate).format("YYYY-MM-DD"),
-          items: [current]
+          items: [current],
         });
       }
     }
-    result.map(group => {
+    result.map((group) => {
       group.total = group.items.reduce((sum, item) => {
         return sum + item.amount;
       }, 0);
@@ -109,7 +116,7 @@ export default class extends Vue {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 ::v-deep {
   .type-tabs-item {
     background: #c4c4c4;
