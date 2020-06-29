@@ -67,6 +67,7 @@ export default class Tags extends Mixins(tagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      cursor: pointer;
       &.selected {
         background: darken($bg, 50%);
         color: white;
@@ -81,6 +82,7 @@ export default class Tags extends Mixins(tagHelper) {
       color: #999;
       border-bottom: 1px solid;
       padding: 0 4px;
+      cursor: pointer;
     }
   }
 }

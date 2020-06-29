@@ -1,19 +1,14 @@
 <template>
   <Layout class="layout">
     <Tags @select:tags="onSelectedTags" />
-    <FormItem
-      class="form-item"
-      field-name="备注"
-      placeholder="请填写备注"
-      :value.sync="record.notes"
-    />
+    <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
     <Tabs :value.sync="record.type" :data-source="tabDataSource" />
-    <NumberPad :value.sync="record.amount" @submit:value="submit" />
+    <NumberPad :value.sync="record.amount" @submit:value="submit" ref="numberPad" />
   </Layout>
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Ref } from "vue-property-decorator";
 import Tags from "@/components/Money/Tags.vue";
 import Tabs from "@/components/Tabs.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
@@ -22,15 +17,16 @@ import recordTypeList from "@/constants/recordTypeList";
 window.localStorage.setItem("version", "0.0.1");
 
 @Component({
-  components: { Tags, Tabs, NumberPad },
+  components: { Tags, Tabs, NumberPad }
 })
 export default class extends Vue {
+  @Ref() readonly numberPad!: NumberPad;
   tabDataSource = recordTypeList;
   record: RecordItem = {
     tags: [],
     notes: "",
     type: "-",
-    amount: 0,
+    amount: 0
   };
   recordList = this.$store.state.recordList;
   created() {
@@ -41,6 +37,8 @@ export default class extends Vue {
       return window.alert("请选择标签后再提交");
     }
     this.$store.commit("createRecord", this.record);
+    window.alert(this.$store.state.errorMessage || "添加成功");
+    this.reset();
   }
   onSelectedTags(selectedTags: string[]) {
     this.record.tags = selectedTags;
@@ -48,8 +46,15 @@ export default class extends Vue {
   initPageInfo() {
     Object.assign(this.record, {
       notes: "",
-      amount: 0,
+      amount: 0
     });
+  }
+  reset() {
+    Object.assign(this.record, {
+      notes: "",
+      amount: 0
+    });
+    this.numberPad.clear();
   }
 }
 </script>

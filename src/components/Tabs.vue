@@ -57,6 +57,7 @@ export default class Types extends Vue {
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: pointer;
     &.selected::after {
       content: "";
       position: absolute;

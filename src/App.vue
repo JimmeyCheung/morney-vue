@@ -8,11 +8,21 @@
 @import "@/assets/style/helper.scss";
 @import "@/assets/style/reset.scss";
 body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  background-color: #333;
   color: #333;
   font-family: $font-hei;
   font-size: 16px;
   line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#app {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+}
+@media screen and (min-width: 500px) {
 }
 </style>

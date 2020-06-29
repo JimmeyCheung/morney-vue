@@ -22,5 +22,6 @@ button {
   color: #fff;
   line-height: 40px;
   border-radius: 4px;
+  cursor: pointer;
 }
 </style>
