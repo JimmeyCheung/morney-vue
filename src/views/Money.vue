@@ -43,12 +43,6 @@ export default class extends Vue {
   onSelectedTags(selectedTags: string[]) {
     this.record.tags = selectedTags;
   }
-  initPageInfo() {
-    Object.assign(this.record, {
-      notes: "",
-      amount: 0
-    });
-  }
   reset() {
     Object.assign(this.record, {
       notes: "",
