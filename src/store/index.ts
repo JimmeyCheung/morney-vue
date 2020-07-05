@@ -35,20 +35,20 @@ const store = new Vuex.Store({
             state.tagList = JSON.parse(window.localStorage.getItem("tagList") || '[]');
             // 初始化标签
             if (state.tagList.length === 0) {
-                store.commit("createTag", "衣");
-                store.commit("createTag", "食");
-                store.commit("createTag", "住");
-                store.commit("createTag", "行");
+                store.commit("createTag", { name: "服饰", icon: "dress" });
+                store.commit("createTag", { name: "餐饮", icon: "food" });
+                store.commit("createTag", { name: "居家", icon: "hotel" });
+                store.commit("createTag", { name: "交通", icon: "traffic" });
             }
             return state.tagList;
         },
-        createTag(state, name) {
+        createTag(state, { name, icon = "default" }) {
             const names = state.tagList.map(item => item.name);
             if (names.indexOf(name) >= 0) {
                 return state.errorMessage = '标签名重复了';
             }
             const id = createId().toString();
-            state.tagList.push({ id, name: name });
+            state.tagList.push({ id, name, icon });
             store.commit("saveTag");
         },
         updateTag(state, payload: { id: string, name: string }) {

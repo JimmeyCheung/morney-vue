@@ -1,7 +1,7 @@
 <template>
   <div class="tags-wrapper">
     <div class="btn-add">
-      <button @click="createTag()">新增标签</button>
+      <button @click="showModal()">新增标签</button>
     </div>
     <ul class="tags">
       <li
@@ -9,8 +9,13 @@
         :key="tag.id"
         :class="selectedTags.indexOf(tag)>-1&&'selected'"
         @click="toggle(tag)"
-      >{{tag.name}}</li>
+        class="tag-item"
+      >
+        <Icon :name="tag.icon"></Icon>
+        <span>{{tag.name}}</span>
+      </li>
     </ul>
+    <TagModal ref="tagModal"></TagModal>
   </div>
 </template>
 
@@ -19,6 +24,7 @@
 import Vue from "vue";
 import { Component, Prop, Mixins } from "vue-property-decorator";
 import tagHelper from "@/mixins/tagHelper";
+import TagModalVue from "@/components/TagModal.vue";
 
 @Component({
   computed: {
@@ -41,6 +47,10 @@ export default class Tags extends Mixins(tagHelper) {
     }
     this.$emit("select:tags", this.selectedTags);
   }
+
+  showModal() {
+    (this.$refs.tagModal as TagModalVue).show();
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -58,19 +68,19 @@ export default class Tags extends Mixins(tagHelper) {
     flex-wrap: wrap;
     overflow: auto;
     > li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       $bg: #d9d9d9;
-      background: $bg;
-      $h: 24px;
-      height: $h;
-      line-height: $h;
-      border-radius: $h/2;
-      padding: 0 16px;
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
       margin-right: 12px;
       margin-top: 4px;
+      font-size: 12px;
       cursor: pointer;
       &.selected {
-        background: darken($bg, 50%);
-        color: white;
+        color: $color-highlight;
       }
     }
   }

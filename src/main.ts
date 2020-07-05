@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { message, Modal, Input, Button } from 'ant-design-vue';
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -7,9 +8,19 @@ import Nav from '@/components/Nav.vue';
 import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
 import FormItem from '@/components/FormItem.vue';
-import Button from '@/components/Button.vue';
+import TagModal from '@/components/TagModal.vue';
 
 Vue.config.productionTip = false;
+Vue.prototype.$message = message;
+Vue.use(Modal);
+Vue.use(Input);
+Vue.use(Button);
+
+Vue.component('Nav', Nav);
+Vue.component('Icon', Icon);
+Vue.component('Layout', Layout);
+Vue.component('FormItem', FormItem);
+Vue.component('TagModal', TagModal);
 
 // 引入assets全部的 svg icon
 const importAll = (requireContext: __WebpackModuleApi.RequireContext) =>
@@ -20,12 +31,6 @@ try {
     console.log(err);
 }
 
-Vue.component('Nav', Nav);
-Vue.component('Icon', Icon);
-Vue.component('Layout', Layout);
-Vue.component('FormItem', FormItem);
-Vue.component('Button', Button);
-
 new Vue({
     router,
     store,
@@ -34,6 +39,5 @@ new Vue({
 
 window.onload = function () {
     setTimeout(function () {
-        window.scrollTo(0, 200);
     }, 0);
 };

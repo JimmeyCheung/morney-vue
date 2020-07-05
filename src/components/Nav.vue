@@ -4,7 +4,7 @@
       <Icon name="label" />标签
     </router-link>
     <router-link to="/money" class="item" active-class="select">
-      <Icon name="money" />记账
+      <Icon name="money" />记一笔
     </router-link>
     <router-link to="/statistics" class="item" active-class="select">
       <Icon name="statistics" />统计
@@ -13,6 +13,7 @@
 </template>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
 nav {
   display: flex;
   justify-content: space-around;
@@ -28,7 +29,7 @@ nav {
     color: #000;
   }
   > .item.select {
-    color: red;
+    color: $color-highlight;
   }
 }
 </style>

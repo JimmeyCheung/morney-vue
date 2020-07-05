@@ -3,21 +3,23 @@
     <Tabs :data-source="recordDataSource" class-prefix="type" :value.sync="type" />
     <!-- <Tabs :data-source="intervalDataSource" class-prefix="interval" /> -->
     <ol v-if="groupedList.length>0">
-      <li v-for="(group, index) in groupedList" :key="index">
+      <li class="day-detail" v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
           {{ beautify(group.title) }}
           <span>￥{{ group.total }}</span>
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
-            <span>{{ tagString(item.tags) }}</span>
+            <div>
+              <span>{{ tagString(item.tags) }}</span>
+            </div>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.amount }}</span>
           </li>
         </ol>
       </li>
     </ol>
-    <div v-else class="noResult">目前没有相关记录</div>
+    <div v-else class="noResult">~目前没有相关记录噢</div>
   </Layout>
 </template>
 
@@ -114,9 +116,29 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.noResult {
-  padding: 16px;
-  text-align: center;
+.layout {
+  $borderColor: rgb(230, 230, 230);
+  .day-detail {
+    border-bottom: 1px solid $borderColor;
+  }
+  .title {
+    @extend %item;
+  }
+  .record {
+    text-indent: 10px;
+    background: white;
+    @extend %item;
+  }
+  .notes {
+    margin-right: auto;
+    margin-left: 16px;
+    color: #999;
+  }
+  .noResult {
+    padding: 16px;
+    text-align: center;
+    color: rgb(178, 157, 157);
+  }
 }
 ::v-deep {
   .type-tabs-item {
@@ -138,17 +160,5 @@ export default class extends Vue {
   display: flex;
   justify-content: space-between;
   align-content: center;
-}
-.title {
-  @extend %item;
-}
-.record {
-  background: white;
-  @extend %item;
-}
-.notes {
-  margin-right: auto;
-  margin-left: 16px;
-  color: #999;
 }
 </style>

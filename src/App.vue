@@ -10,7 +10,7 @@
 body {
   display: flex;
   justify-content: center;
-  background-color: #333;
+  background-color: gainsboro;
   color: #333;
   font-family: $font-hei;
   font-size: 16px;
@@ -21,6 +21,7 @@ body {
 #app {
   width: 100%;
   max-width: 500px;
+  height: 100%;
   background-color: #fff;
 }
 @media screen and (min-width: 500px) {
