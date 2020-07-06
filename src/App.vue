@@ -20,7 +20,7 @@ body {
 }
 #app {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   height: 100%;
   background-color: #fff;
 }

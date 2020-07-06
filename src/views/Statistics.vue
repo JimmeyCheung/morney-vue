@@ -2,7 +2,7 @@
   <Layout class="layout">
     <Tabs :data-source="recordDataSource" class-prefix="type" :value.sync="type" />
     <!-- <Tabs :data-source="intervalDataSource" class-prefix="interval" /> -->
-    <v-chart ref="echarts" class="echarts" :options="chartOption" />
+    <v-chart ref="echarts" v-if="showChart" class="echarts" :options="chartOption" />
     <ol class="list" v-if="groupedList.length > 0">
       <li class="day-detail" v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component } from "vue-property-decorator";
+import { Component, Watch } from "vue-property-decorator";
 import Tabs from "@/components/Tabs.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import intervalList from "@/constants/intervalList";
@@ -39,50 +39,61 @@ import "echarts/lib/chart/bar";
   components: { Tabs, "v-chart": ECharts }
 })
 export default class extends Vue {
+  type = "-";
+  showChart = false;
+  chartOption = {};
+  recordTypeList = recordTypeList;
   recordDataSource = recordTypeList;
   intervalDataSource = intervalList;
-  chartOption = {
-    title: {
-      text: "ECharts 入门示例"
-    },
-    tooltip: {},
-    legend: {
-      data: ["销量"]
-    },
-    xAxis: {
-      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
-    },
-    yAxis: {},
-    series: [
-      {
-        name: "销量",
-        type: "bar",
-        data: [5, 20, 36, 10, 10, 20]
+  @Watch("type", { immediate: true })
+  onTypeChanged(val: string, oldVal: string) {
+    const xAxisData = <any>[];
+    const seriesData = <any>[];
+    const _chartData = <any>{};
+    this.recordList.forEach((record: RecordItem) => {
+      if (record.type === this.type) {
+        const tagName = record.tags[0].name;
+        const amount = (_chartData[tagName] || 0) + record.amount;
+        _chartData[tagName] = amount;
       }
-    ]
-  };
-  mounted() {
-    setTimeout(() => {
-      console.log(this.chartData);
-    }, 1000);
-  }
-  tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.map(v => v.name).join(",");
-  }
-  beautify(string: string) {
-    const day = dayjs(string);
-    const now = dayjs();
-    if (day.isSame(now, "day")) {
-      return "今天";
-    } else if (day.isSame(now.subtract(1, "day"), "day")) {
-      return "昨天";
-    } else if (day.isSame(now.subtract(2, "day"), "day")) {
-      return "前天";
-    } else if (day.isSame(now, "year")) {
-      return day.format("M月D日");
-    } else {
-      return day.format("YYYY年M月D日");
-    }
+    });
+
+    this.showChart = Object.keys(_chartData).length > 0;
+    this.chartOption = {
+      title: {
+        text: "ECharts 入门示例",
+        show: true
+      },
+      tooltip: {},
+      legend: {
+        data: ["销量"]
+      },
+      calculable: true,
+      grid: {
+        top: "40px",
+        left: "1%",
+        right: "10%",
+        bottom: "20px",
+        containLabel: true
+      },
+      yAxis: [
+        {
+          type: "value",
+          name: "收入(元)"
+        }
+      ],
+      xAxis: {
+        data: Object.keys(_chartData)
+      },
+      series: [
+        {
+          name: "销量",
+          type: "bar",
+          barWidth: 30,
+          data: Object.values(_chartData)
+        }
+      ]
+    };
   }
 
   get recordList() {
@@ -132,36 +143,28 @@ export default class extends Vue {
     });
     return result;
   }
-
-  get chartData() {
-    const xAxisData = <any>[];
-    const seriesData = <any>[];
-    const _chartData = <any>{};
-    this.recordList.forEach((record: RecordItem) => {
-      const tagName = record.tags[0].name;
-      const amount = _chartData[tagName] || 0 + record.amount;
-      _chartData[tagName] = amount;
-    });
-    return {
-      xAxis: {
-        data: Object.keys(_chartData)
-      },
-      series: [
-        {
-          name: "销量",
-          type: "bar",
-          data: Object.values(_chartData)
-        }
-      ]
-    };
+  tagString(tags: Tag[]) {
+    return tags.length === 0 ? "无" : tags.map(v => v.name).join(",");
+  }
+  beautify(string: string) {
+    const day = dayjs(string);
+    const now = dayjs();
+    if (day.isSame(now, "day")) {
+      return "今天";
+    } else if (day.isSame(now.subtract(1, "day"), "day")) {
+      return "昨天";
+    } else if (day.isSame(now.subtract(2, "day"), "day")) {
+      return "前天";
+    } else if (day.isSame(now, "year")) {
+      return day.format("M月D日");
+    } else {
+      return day.format("YYYY年M月D日");
+    }
   }
 
   beforeCreate() {
     this.$store.commit("fetchRecord");
   }
-
-  type = "-";
-  recordTypeList = recordTypeList;
 }
 </script>
 
@@ -201,9 +204,10 @@ export default class extends Vue {
 }
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
+    background: white;
     &.selected {
-      background: white;
+      background: #000;
+      color: #fff;
       &::after {
         display: none;
       }

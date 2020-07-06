@@ -1,8 +1,5 @@
 <template>
   <div class="tags-wrapper">
-    <div class="btn-add">
-      <button @click="showModal()">新增标签</button>
-    </div>
     <ul class="tags">
       <li
         v-for="tag in tagList"
@@ -13,6 +10,10 @@
       >
         <Icon :name="tag.icon"></Icon>
         <span>{{tag.name}}</span>
+      </li>
+      <li class="add-Item" @click="showModal()">
+        <Icon name="add"></Icon>
+        <span>添加</span>
       </li>
     </ul>
     <TagModal ref="tagModal"></TagModal>
@@ -57,11 +58,13 @@ export default class Tags extends Mixins(tagHelper) {
 @import "~@/assets/style/helper.scss";
 .tags-wrapper {
   font-size: 14px;
-  padding: 16px;
+  padding: 10px;
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
   overflow: auto;
+  min-height: 132px;
+  $bg: #d9d9d9;
   > .tags {
     flex: 1;
     display: flex;
@@ -71,7 +74,6 @@ export default class Tags extends Mixins(tagHelper) {
       display: flex;
       flex-direction: column;
       align-items: center;
-      $bg: #d9d9d9;
       height: 48px;
       width: 48px;
       border-radius: 50%;
@@ -81,6 +83,12 @@ export default class Tags extends Mixins(tagHelper) {
       cursor: pointer;
       &.selected {
         color: $color-highlight;
+      }
+    }
+    .add-Item {
+      svg {
+        background: $bg;
+        border-radius: 50%;
       }
     }
   }

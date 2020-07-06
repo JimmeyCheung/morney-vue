@@ -34,11 +34,11 @@ export default class extends Vue {
   }
   submit() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      return this.$message.warning("请选择标签后再提交");
+      return this.$message.warning("请选择标签后再提交", 1);
     }
     this.$store.commit("createRecord", this.record);
     const msg = this.$store.state.createTagError;
-    msg ? this.$message.warning(msg) : this.$message.success("添加成功");
+    msg ? this.$message.warning(msg, 1) : this.$message.success("添加成功", 1);
     this.reset();
   }
   onSelectedTags(selectedTags: Tag[]) {
