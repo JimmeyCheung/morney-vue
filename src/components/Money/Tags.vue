@@ -21,8 +21,7 @@
 
 
 <script lang='ts'>
-import Vue from "vue";
-import { Component, Prop, Mixins } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import tagHelper from "@/mixins/tagHelper";
 import TagModalVue from "@/components/TagModal.vue";
 
@@ -43,7 +42,8 @@ export default class Tags extends Mixins(tagHelper) {
     if (index > -1) {
       this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTags.push(tag);
+      // this.selectedTags.push(tag);
+      this.selectedTags = [tag]; // 单次选中一个标签
     }
     this.$emit("select:tags", this.selectedTags);
   }

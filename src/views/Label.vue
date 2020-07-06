@@ -24,7 +24,7 @@ import TagModalVue from "../components/TagModal.vue";
 
 @Component
 export default class extends Mixins(tagHelper) {
-  visible: boolean = false;
+  visible = false;
   get tagList() {
     return this.$store.state.tagList;
   }

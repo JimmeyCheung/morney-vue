@@ -2,7 +2,8 @@
   <Layout class="layout">
     <Tabs :data-source="recordDataSource" class-prefix="type" :value.sync="type" />
     <!-- <Tabs :data-source="intervalDataSource" class-prefix="interval" /> -->
-    <ol v-if="groupedList.length>0">
+    <v-chart ref="echarts" class="echarts" :options="chartOption" />
+    <ol class="list" v-if="groupedList.length > 0">
       <li class="day-detail" v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
           {{ beautify(group.title) }}
@@ -31,17 +32,43 @@ import recordTypeList from "@/constants/recordTypeList";
 import intervalList from "@/constants/intervalList";
 import dayjs from "dayjs";
 import clone from "@/lib/clone";
+import ECharts from "vue-echarts/components/ECharts.vue";
+import "echarts/lib/chart/bar";
 
 @Component({
-  components: { Tabs }
+  components: { Tabs, "v-chart": ECharts }
 })
 export default class extends Vue {
   recordDataSource = recordTypeList;
   intervalDataSource = intervalList;
+  chartOption = {
+    title: {
+      text: "ECharts 入门示例"
+    },
+    tooltip: {},
+    legend: {
+      data: ["销量"]
+    },
+    xAxis: {
+      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+    },
+    yAxis: {},
+    series: [
+      {
+        name: "销量",
+        type: "bar",
+        data: [5, 20, 36, 10, 10, 20]
+      }
+    ]
+  };
+  mounted() {
+    setTimeout(() => {
+      console.log(this.chartData);
+    }, 1000);
+  }
   tagString(tags: Tag[]) {
     return tags.length === 0 ? "无" : tags.map(v => v.name).join(",");
   }
-
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
@@ -106,6 +133,29 @@ export default class extends Vue {
     return result;
   }
 
+  get chartData() {
+    const xAxisData = <any>[];
+    const seriesData = <any>[];
+    const _chartData = <any>{};
+    this.recordList.forEach((record: RecordItem) => {
+      const tagName = record.tags[0].name;
+      const amount = _chartData[tagName] || 0 + record.amount;
+      _chartData[tagName] = amount;
+    });
+    return {
+      xAxis: {
+        data: Object.keys(_chartData)
+      },
+      series: [
+        {
+          name: "销量",
+          type: "bar",
+          data: Object.values(_chartData)
+        }
+      ]
+    };
+  }
+
   beforeCreate() {
     this.$store.commit("fetchRecord");
   }
@@ -118,21 +168,30 @@ export default class extends Vue {
 <style lang="scss" scoped>
 .layout {
   $borderColor: rgb(230, 230, 230);
-  .day-detail {
-    border-bottom: 1px solid $borderColor;
+  .echarts {
+    width: 100%;
+    max-height: 40%;
   }
-  .title {
-    @extend %item;
-  }
-  .record {
-    text-indent: 10px;
-    background: white;
-    @extend %item;
-  }
-  .notes {
-    margin-right: auto;
-    margin-left: 16px;
-    color: #999;
+  .list {
+    flex: 1;
+    height: 100%;
+    overflow: auto;
+    .day-detail {
+      border-bottom: 1px solid $borderColor;
+    }
+    .title {
+      @extend %item;
+    }
+    .record {
+      text-indent: 10px;
+      background: white;
+      @extend %item;
+    }
+    .notes {
+      margin-right: auto;
+      margin-left: 16px;
+      color: #999;
+    }
   }
   .noResult {
     padding: 16px;

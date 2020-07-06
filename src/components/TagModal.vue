@@ -12,13 +12,12 @@
 </template>
 
 <script lang='ts'>
-import Vue from "vue";
-import { Component, Prop, Watch, Mixins } from "vue-property-decorator";
+import { Component, Mixins } from "vue-property-decorator";
 import tagHelper from "@/mixins/tagHelper";
 @Component
 export default class extends Mixins(tagHelper) {
   visible = false;
-  tagName: string = "";
+  tagName = "";
   handleOk() {
     this.createTag(this.tagName);
     this.hide();

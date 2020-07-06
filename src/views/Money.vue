@@ -41,7 +41,7 @@ export default class extends Vue {
     msg ? this.$message.warning(msg) : this.$message.success("添加成功");
     this.reset();
   }
-  onSelectedTags(selectedTags: string[]) {
+  onSelectedTags(selectedTags: Tag[]) {
     this.record.tags = selectedTags;
   }
   reset() {
