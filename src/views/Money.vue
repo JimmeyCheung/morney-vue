@@ -46,7 +46,10 @@ export default class extends Vue {
   }
   submit() {
     if (!this.record.tags || this.record.tags.length === 0) {
-      return this.$message.warning("请选择标签后再提交", 1);
+      return this.$message.warning("请选择标签", 1);
+    }
+    if (!this.record.amount || this.record.amount === 0) {
+      return this.$message.warning("请输入金额", 1);
     }
     this.$store.commit("createRecord", this.record);
     const msg = this.$store.state.createTagError;
