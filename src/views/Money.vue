@@ -73,7 +73,7 @@ export default class extends Vue {
 
   .form-group {
     display: flex;
-    padding: 5px 10px;
+    padding: 10px 10px;
 
     .form-item {
       background: #f5f5f5;

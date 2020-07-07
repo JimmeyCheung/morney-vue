@@ -67,7 +67,7 @@ $btn-height: 15vw;
     font-family: Consolas, monospace;
     padding: 0 16px;
     text-align: right;
-    min-height: 50px;
+    min-height: 54px;
     overflow: auto;
   }
   .buttons {

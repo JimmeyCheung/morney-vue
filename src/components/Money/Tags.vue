@@ -1,6 +1,6 @@
 <template>
   <div class="tags-wrapper">
-    <a-carousel dot-position="bottom" dotsClass="dots">
+    <a-carousel dot-position="bottom" dotsClass="dots" class="carousel">
       <div v-for="(tagList,index) of carouselList" :key="index">
         <ul class="tags">
           <li
@@ -72,21 +72,31 @@ $bg: #d9d9d9;
 .tags-wrapper {
   position: relative;
   font-size: 14px;
-  padding: 10px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   ::v-deep {
-    .dots {
-      $bgcolor: rgb(160, 154, 154);
-      bottom: 0;
-      & > li {
-        background: $bgcolor;
+    .carousel {
+      height: 100%;
+      .slick-slider,
+      .slick-list,
+      .slick-track {
+        height: 100%;
+        div {
+          height: 100%;
+        }
       }
-      & > .slick-active {
-        button {
-          background: #000;
+      .dots {
+        $bgcolor: rgb(160, 154, 154);
+        bottom: 0;
+        & > li {
+          background: $bgcolor;
+        }
+        & > .slick-active {
+          button {
+            background: #000;
+          }
         }
       }
     }
@@ -95,6 +105,7 @@ $bg: #d9d9d9;
   .tags {
     flex: 1;
     display: flex;
+    height: 100%;
     min-height: 120px;
     flex-wrap: wrap;
     align-content: flex-start;
@@ -103,9 +114,9 @@ $bg: #d9d9d9;
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 48px;
+      justify-content: center;
+      height: 50%;
       width: 20%;
-      margin-top: 4px;
       border-radius: 50%;
       font-size: 12px;
       cursor: pointer;

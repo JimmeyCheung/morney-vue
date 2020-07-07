@@ -2,8 +2,89 @@ import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
 import clone from '@/lib/clone';
 import createId from '@/lib/createId';
+import moment from 'moment';
 
 Vue.use(Vuex)
+const initialRecordList = [
+    {
+        "tags": [{
+            "id": "42",
+            "name": "服饰",
+            "icon": "dress"
+        }
+        ],
+        "notes": "买了一件裙子",
+        "type": "-",
+        "amount": 200,
+        "createdDate": moment("2020-07-01")
+    }, {
+        "tags": [{
+            "id": "43",
+            "name": "餐饮",
+            "icon": "food"
+        }
+        ],
+        "notes": "吃了一顿大餐",
+        "type": "-",
+        "amount": 220,
+        "createdDate": moment("2020-07-01")
+    }, {
+        "tags": [{
+            "id": "45",
+            "name": "交通",
+            "icon": "traffic"
+        }
+        ],
+        "notes": "乘坐地铁",
+        "type": "-",
+        "amount": 5,
+        "createdDate": moment("2020-07-01")
+    }, {
+        "tags": [{
+            "id": "46",
+            "name": "旅游",
+            "icon": "travel"
+        }
+        ],
+        "notes": "度蜜月",
+        "type": "-",
+        "amount": 10000,
+        "createdDate": moment("2020-07-02")
+    }, {
+        "tags": [{
+            "id": "47",
+            "name": "红包",
+            "icon": "cash"
+        }
+        ],
+        "notes": ".",
+        "type": "-",
+        "amount": 520,
+        "createdDate": moment("2020-05-20")
+    }, {
+        "tags": [{
+            "id": "48",
+            "name": "补贴",
+            "icon": "allowance"
+        }
+        ],
+        "notes": "高温补贴",
+        "type": "-",
+        "amount": 500,
+        "createdDate": moment("2020-07-02")
+    }, {
+        "tags": [{
+            "id": "50",
+            "name": "通讯",
+            "icon": "message"
+        }
+        ],
+        "notes": "话费",
+        "type": "-",
+        "amount": 500,
+        "createdDate": moment("2020-07-01")
+    }
+];
 
 const store = new Vuex.Store({
     state: {
@@ -19,6 +100,9 @@ const store = new Vuex.Store({
         //Record
         fetchRecord(state) {
             state.recordList = JSON.parse(localStorage.getItem("recordList") || "[]") as RecordItem[];
+            if (state.recordList.length === 0) {
+                state.recordList = initialRecordList;
+            }
             return this.recordList;
         },
         createRecord(state, record) {
@@ -39,6 +123,15 @@ const store = new Vuex.Store({
                 store.commit("createTag", { name: "餐饮", icon: "food" });
                 store.commit("createTag", { name: "居家", icon: "hotel" });
                 store.commit("createTag", { name: "交通", icon: "traffic" });
+                store.commit("createTag", { name: "旅游", icon: "travel" });
+                store.commit("createTag", { name: "红包", icon: "cash" });
+                store.commit("createTag", { name: "补贴", icon: "allowance" });
+                store.commit("createTag", { name: "零食", icon: "sock" });
+                store.commit("createTag", { name: "通讯", icon: "message" });
+                store.commit("createTag", { name: "社交", icon: "social-contact" });
+                store.commit("createTag", { name: "工资", icon: "salary" });
+                store.commit("createTag", { name: "奖金", icon: "bonus" });
+                store.commit("createTag", { name: "兼职", icon: "part-time" });
             }
             return state.tagList;
         },
