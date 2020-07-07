@@ -10,6 +10,8 @@
         placeholder="请选择日期"
         showToday
         v-model="record.createdDate"
+        inputReadOnly
+        ref="datePicker"
       />
       <a-input class="remark" placeholder="请填写备注" v-model="record.notes" />
     </div>
@@ -24,6 +26,8 @@ import Tabs from "@/components/Tabs.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
 import recordTypeList from "@/constants/recordTypeList";
 import moment from "moment";
+import { DatePicker } from "ant-design-vue";
+import { DatepickerCommon } from "ant-design-vue/types/date-picker/common";
 
 window.localStorage.setItem("version", "0.0.1");
 
