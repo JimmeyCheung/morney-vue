@@ -5,6 +5,7 @@ import createId from '@/lib/createId';
 import moment from 'moment';
 
 Vue.use(Vuex)
+// 初始化统计记录
 const initialRecordList = [
     {
         "tags": [{
@@ -41,17 +42,6 @@ const initialRecordList = [
         "createdDate": moment("2020-07-01")
     }, {
         "tags": [{
-            "id": "46",
-            "name": "旅游",
-            "icon": "travel"
-        }
-        ],
-        "notes": "度蜜月",
-        "type": "-",
-        "amount": 10000,
-        "createdDate": moment("2020-07-02")
-    }, {
-        "tags": [{
             "id": "47",
             "name": "红包",
             "icon": "cash"
@@ -61,28 +51,6 @@ const initialRecordList = [
         "type": "-",
         "amount": 520,
         "createdDate": moment("2020-05-20")
-    }, {
-        "tags": [{
-            "id": "48",
-            "name": "补贴",
-            "icon": "allowance"
-        }
-        ],
-        "notes": "高温补贴",
-        "type": "-",
-        "amount": 500,
-        "createdDate": moment("2020-07-02")
-    }, {
-        "tags": [{
-            "id": "50",
-            "name": "通讯",
-            "icon": "message"
-        }
-        ],
-        "notes": "话费",
-        "type": "-",
-        "amount": 500,
-        "createdDate": moment("2020-07-01")
     }
 ];
 

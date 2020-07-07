@@ -63,7 +63,6 @@ export default class extends Mixins(tagHelper) {
         width: 18px;
         height: 18px;
         margin-right: 12px;
-        color: #666;
       }
     }
   }

@@ -11,8 +11,9 @@
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
-            <div>
-              <span>{{ tagString(item.tags) }}</span>
+            <div class="tag">
+              <!-- <Icon :name="item.tags[0].icon"></Icon> -->
+              <span>{{ item.tags[0].name }}</span>
             </div>
             <span class="notes">{{ item.notes }}</span>
             <span>￥{{ item.amount }}</span>
@@ -172,6 +173,7 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/style/reset.scss";
 .layout {
   $borderColor: rgb(230, 230, 230);
   .echarts {
@@ -192,10 +194,20 @@ export default class extends Vue {
       text-indent: 10px;
       background: white;
       @extend %item;
+
+      .tag {
+        display: flex;
+        align-items: center;
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
     }
     .notes {
       margin-right: auto;
       margin-left: 16px;
+      font-size: 14px;
       color: #999;
     }
   }
@@ -221,7 +233,7 @@ export default class extends Vue {
   }
 }
 %item {
-  padding: 8px 16px;
+  padding: 8px 16px 0 16px;
   line-height: 24px;
   display: flex;
   justify-content: space-between;
