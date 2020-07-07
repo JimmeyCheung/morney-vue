@@ -1,9 +1,10 @@
+
 type RecordItem = {
     tags: Tag[];
     notes: string;
     type: string;
     amount: number;
-    createdDate?: string;
+    createdDate: moment.Moment;
 };
 type Tag = {
     id: string,

@@ -1,8 +1,18 @@
 <template>
   <Layout class="layout">
-    <Tags @select:tags="onSelectedTags" />
-    <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" />
     <Tabs :value.sync="record.type" :data-source="tabDataSource" />
+    <Tags @select:tags="onSelectedTags" />
+    <div class="form-group">
+      <!-- <FormItem class="form-item" field-name="备注" placeholder="请填写备注" :value.sync="record.notes" /> -->
+      <a-date-picker
+        class="date"
+        size="default"
+        placeholder="请选择日期"
+        showToday
+        v-model="record.createdDate"
+      />
+      <a-input class="remark" placeholder="请填写备注" v-model="record.notes" />
+    </div>
     <NumberPad :value.sync="record.amount" @submit:value="submit" ref="numberPad" />
   </Layout>
 </template>
@@ -13,6 +23,7 @@ import Tags from "@/components/Money/Tags.vue";
 import Tabs from "@/components/Tabs.vue";
 import NumberPad from "@/components/Money/NumberPad.vue";
 import recordTypeList from "@/constants/recordTypeList";
+import moment from "moment";
 
 window.localStorage.setItem("version", "0.0.1");
 
@@ -26,7 +37,8 @@ export default class extends Vue {
     tags: [],
     notes: "",
     type: "-",
-    amount: 0
+    amount: 0,
+    createdDate: moment(new Date())
   };
   recordList = this.$store.state.recordList;
   created() {
@@ -59,8 +71,16 @@ export default class extends Vue {
   display: flex;
   flex-direction: column-reverse;
 
-  .form-item {
-    background: #f5f5f5;
+  .form-group {
+    display: flex;
+    padding: 5px 10px;
+
+    .form-item {
+      background: #f5f5f5;
+    }
+    .date {
+      margin-right: 10px;
+    }
   }
 }
 </style>

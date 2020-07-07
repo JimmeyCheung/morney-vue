@@ -10,7 +10,7 @@
 
 <style lang="scss" scoped>
 .wrapper {
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 

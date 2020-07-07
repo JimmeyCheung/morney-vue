@@ -112,7 +112,8 @@ export default class extends Vue {
       })
       .sort(
         (a, b) =>
-          dayjs(b.createdDate).valueOf() - dayjs(a.createdDate).valueOf()
+          dayjs(b.createdDate.toString()).valueOf() -
+          dayjs(a.createdDate.toString()).valueOf()
       );
     if (newList.length === 0) {
       return [];
@@ -120,18 +121,20 @@ export default class extends Vue {
     type Result = { title: string; total?: number; items: RecordItem[] }[];
     const result: Result = [
       {
-        title: dayjs(newList[0].createdDate).format("YYYY-MM-DD"),
+        title: dayjs(newList[0].createdDate.toString()).format("YYYY-MM-DD"),
         items: [newList[0]]
       }
     ];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
-      if (dayjs(last.title).isSame(dayjs(current.createdDate), "day")) {
+      if (
+        dayjs(last.title).isSame(dayjs(current.createdDate.toString()), "day")
+      ) {
         last.items.push(current);
       } else {
         result.push({
-          title: dayjs(current.createdDate).format("YYYY-MM-DD"),
+          title: dayjs(current.createdDate.toString()).format("YYYY-MM-DD"),
           items: [current]
         });
       }

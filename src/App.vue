@@ -10,6 +10,7 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: gainsboro;
   color: #333;
   font-family: $font-hei;
@@ -20,7 +21,6 @@ body {
 }
 #app {
   width: 100%;
-  max-width: 400px;
   height: 100%;
   background-color: #fff;
 }

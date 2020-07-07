@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { message, Modal, Input, Button } from 'ant-design-vue';
+import { message, Modal, Input, Button, DatePicker, Tabs, Carousel } from 'ant-design-vue';
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
@@ -15,6 +15,9 @@ Vue.prototype.$message = message;
 Vue.use(Modal);
 Vue.use(Input);
 Vue.use(Button);
+Vue.use(DatePicker);
+Vue.use(Tabs);
+Vue.use(Carousel);
 
 Vue.component('Nav', Nav);
 Vue.component('Icon', Icon);
