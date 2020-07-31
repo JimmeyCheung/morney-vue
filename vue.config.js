@@ -2,9 +2,15 @@ const path = require('path');
 console.log(path);
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/morney-website/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/-website/' : '/',
     lintOnSave: false,
     chainWebpack: config => {
+        config
+            .plugin('html')
+            .tap(args => {
+                args[0].title = "吉米账本";
+                return args;
+            })
         const dir = path.resolve('src/assets/icons');
 
         config.module

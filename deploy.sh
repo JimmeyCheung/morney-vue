@@ -23,6 +23,6 @@ git commit -m 'deploy'
 git push -f git@github.com:JimmeyCheung/morney-website.git master:gh-pages
 
 # 部署到码云Gitee Pages
-# git push -f git@gitee.com:JimmeyCheung/morney-website.git master
+git push -f git@gitee.com:JimmeyCheung/morney-website.git master
 
 cd -
