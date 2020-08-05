@@ -21,32 +21,27 @@
 
 
 <script lang='ts'>
-import { Component, Mixins } from "vue-property-decorator";
+import { Component, Mixins, Watch } from "vue-property-decorator";
 import tagHelper from "@/mixins/tagHelper";
 import TagModalVue from "@/components/TagModal.vue";
 
-//单页走马灯上限
-const carouselLength = 10;
-
-@Component({
-  computed: {
-    carouselList() {
-      const list = this.$store.state.tagList;
-      const copyList = Array.from(list);
-      copyList.push({
-        icon: "add",
-        name: "添加"
-      });
-      const arr = [];
-      while (copyList.length > 0) {
-        arr.push(copyList.splice(0, carouselLength));
-      }
-      return arr;
-    }
-  }
-})
+@Component({})
 export default class Tags extends Mixins(tagHelper) {
   selectedTags: string[] = [];
+  carouselLength = this.getCarouselLength(); //单页走马灯上限
+  get carouselList() {
+    const list = this.$store.state.tagList;
+    const copyList = Array.from(list);
+    copyList.push({
+      icon: "add",
+      name: "添加",
+    });
+    const arr = [];
+    while (copyList.length > 0) {
+      arr.push(copyList.splice(0, this.carouselLength));
+    }
+    return arr;
+  }
   created() {
     this.$store.commit("fetchTag");
   }
@@ -59,6 +54,19 @@ export default class Tags extends Mixins(tagHelper) {
       this.selectedTags = [tag]; // 单次选中一个标签
     }
     this.$emit("select:tags", this.selectedTags);
+  }
+  mounted() {
+    window.onresize = () => {
+      let canUse = true;
+      if (canUse) {
+        this.carouselLength = this.getCarouselLength();
+        canUse = false;
+        setTimeout(() => (canUse = true), 50);
+      }
+    };
+  }
+  getCarouselLength() {
+    return window.document.body.clientHeight > 700 ? 15 : 10;
   }
 
   showModal() {
@@ -122,6 +130,11 @@ $bg: #d9d9d9;
       cursor: pointer;
       &.selected {
         color: $color-highlight;
+      }
+      & {
+        @media screen and (min-height: 700px) {
+          height: 30%;
+        }
       }
     }
     .add-item {

@@ -37,7 +37,7 @@ import ECharts from "vue-echarts/components/ECharts.vue";
 import "echarts/lib/chart/bar";
 
 @Component({
-  components: { Tabs, "v-chart": ECharts }
+  components: { Tabs, "v-chart": ECharts },
 })
 export default class extends Vue {
   type = "-";
@@ -63,11 +63,11 @@ export default class extends Vue {
     this.chartOption = {
       title: {
         text: "ECharts 入门示例",
-        show: true
+        show: true,
       },
       tooltip: {},
       legend: {
-        data: ["销量"]
+        data: ["销量"],
       },
       calculable: true,
       grid: {
@@ -75,25 +75,25 @@ export default class extends Vue {
         left: "1%",
         right: "10%",
         bottom: "20px",
-        containLabel: true
+        containLabel: true,
       },
       yAxis: [
         {
           type: "value",
-          name: "收入(元)"
-        }
+          name: "收入(元)",
+        },
       ],
       xAxis: {
-        data: Object.keys(_chartData)
+        data: Object.keys(_chartData),
       },
       series: [
         {
           name: "销量",
           type: "bar",
           barWidth: 30,
-          data: Object.values(_chartData)
-        }
-      ]
+          data: Object.values(_chartData),
+        },
+      ],
     };
   }
 
@@ -108,7 +108,7 @@ export default class extends Vue {
     }
 
     const newList = clone(recordList)
-      .filter(r => {
+      .filter((r) => {
         return r.type === this.type;
       })
       .sort(
@@ -123,8 +123,8 @@ export default class extends Vue {
     const result: Result = [
       {
         title: dayjs(newList[0].createdDate.toString()).format("YYYY-MM-DD"),
-        items: [newList[0]]
-      }
+        items: [newList[0]],
+      },
     ];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
@@ -136,11 +136,11 @@ export default class extends Vue {
       } else {
         result.push({
           title: dayjs(current.createdDate.toString()).format("YYYY-MM-DD"),
-          items: [current]
+          items: [current],
         });
       }
     }
-    result.map(group => {
+    result.map((group) => {
       group.total = group.items.reduce((sum, item) => {
         return sum + item.amount;
       }, 0);
@@ -148,7 +148,7 @@ export default class extends Vue {
     return result;
   }
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.map(v => v.name).join(",");
+    return tags.length === 0 ? "无" : tags.map((v) => v.name).join(",");
   }
   beautify(string: string) {
     const day = dayjs(string);
@@ -174,6 +174,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 @import "@/assets/style/reset.scss";
+@import "~@/assets/style/helper.scss";
 .layout {
   $borderColor: rgb(230, 230, 230);
   .echarts {

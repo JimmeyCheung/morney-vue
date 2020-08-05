@@ -27,7 +27,7 @@ export default class Types extends Vue {
 
   selectedItem: DataSourceItem = {
     value: "",
-    text: ""
+    text: "",
   };
   created() {
     const index = this.selectedIndex || 0;
