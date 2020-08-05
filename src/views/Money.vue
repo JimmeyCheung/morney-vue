@@ -13,7 +13,7 @@
         inputReadOnly
         ref="datePicker"
       />
-      <a-input class="remark" placeholder="请填写备注" v-model="record.notes" />
+      <a-input class="remark" placeholder="写点儿什么吧" v-model="record.notes" />
     </div>
     <NumberPad :value.sync="record.amount" @submit:value="submit" ref="numberPad" />
   </Layout>
@@ -32,7 +32,7 @@ import { DatepickerCommon } from "ant-design-vue/types/date-picker/common";
 window.localStorage.setItem("version", "0.0.1");
 
 @Component({
-  components: { Tags, Tabs, NumberPad }
+  components: { Tags, Tabs, NumberPad },
 })
 export default class extends Vue {
   @Ref() readonly numberPad!: NumberPad;
@@ -42,7 +42,7 @@ export default class extends Vue {
     notes: "",
     type: "-",
     amount: 0,
-    createdDate: moment(new Date())
+    createdDate: moment(new Date()),
   };
   recordList = this.$store.state.recordList;
   created() {
@@ -66,7 +66,7 @@ export default class extends Vue {
   reset() {
     Object.assign(this.record, {
       notes: "",
-      amount: 0
+      amount: 0,
     });
     this.numberPad.clear();
   }
@@ -80,7 +80,7 @@ export default class extends Vue {
 
   .form-group {
     display: flex;
-    padding: 10px 10px;
+    padding: 10px 0;
 
     .form-item {
       background: #f5f5f5;

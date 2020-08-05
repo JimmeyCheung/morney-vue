@@ -58,7 +58,7 @@ export default class NumberPad extends Vue {
 <style lang="scss" scoped>
 @import "~@/assets/style/helper.scss";
 
-$btn-height: 15vw;
+$btn-height: 20vw;
 .numberPad {
   .output {
     @extend %clearFix;
