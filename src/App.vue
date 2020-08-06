@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <QRCode></QRCode>
     <router-view />
   </div>
 </template>

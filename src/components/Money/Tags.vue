@@ -133,7 +133,7 @@ $bg: #d9d9d9;
       }
       & {
         @media screen and (min-height: 700px) {
-          height: 30%;
+          height: 33.333%;
         }
       }
     }

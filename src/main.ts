@@ -9,6 +9,7 @@ import Icon from '@/components/Icon.vue';
 import Layout from '@/components/Layout.vue';
 import FormItem from '@/components/FormItem.vue';
 import TagModal from '@/components/TagModal.vue';
+import QRCode from '@/components/QRCode.vue';
 
 Vue.config.productionTip = false;
 Vue.prototype.$message = message;
@@ -24,6 +25,7 @@ Vue.component('Icon', Icon);
 Vue.component('Layout', Layout);
 Vue.component('FormItem', FormItem);
 Vue.component('TagModal', TagModal);
+Vue.component('QRCode', QRCode);
 
 // 引入assets全部的 svg icon
 const importAll = (requireContext: __WebpackModuleApi.RequireContext) =>
