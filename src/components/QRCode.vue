@@ -32,7 +32,7 @@ export default Vue.extend({
   background: rgb(140, 140, 140, 0.5);
   z-index: 9999;
   &.visible {
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 501px) {
       display: block;
     }
   }
